@@ -1,0 +1,269 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		99ABF136130D3C6400462754 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99ABF135130D3C6400462754 /* UIKit.framework */; };
+		99ABF138130D3C6400462754 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99ABF137130D3C6400462754 /* Foundation.framework */; };
+		99ABF13A130D3C6400462754 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99ABF139130D3C6400462754 /* CoreGraphics.framework */; };
+		99ABF140130D3C6400462754 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 99ABF13E130D3C6400462754 /* InfoPlist.strings */; };
+		99ABF143130D3C6400462754 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 99ABF142130D3C6400462754 /* main.m */; };
+		99ABF146130D3C6400462754 /* TCImageViewDemoAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 99ABF145130D3C6400462754 /* TCImageViewDemoAppDelegate.m */; };
+		99ABF149130D3C6400462754 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 99ABF147130D3C6400462754 /* MainWindow.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		99ABF131130D3C6400462754 /* TCImageViewDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TCImageViewDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		99ABF135130D3C6400462754 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		99ABF137130D3C6400462754 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		99ABF139130D3C6400462754 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		99ABF13D130D3C6400462754 /* TCImageViewDemo-Info.plist */ = {isa = PBXFileReference; path = "TCImageViewDemo-Info.plist"; sourceTree = "<group>"; };
+		99ABF13F130D3C6400462754 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		99ABF141130D3C6400462754 /* TCImageViewDemo-Prefix.pch */ = {isa = PBXFileReference; path = "TCImageViewDemo-Prefix.pch"; sourceTree = "<group>"; };
+		99ABF142130D3C6400462754 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		99ABF144130D3C6400462754 /* TCImageViewDemoAppDelegate.h */ = {isa = PBXFileReference; path = TCImageViewDemoAppDelegate.h; sourceTree = "<group>"; };
+		99ABF145130D3C6400462754 /* TCImageViewDemoAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TCImageViewDemoAppDelegate.m; sourceTree = "<group>"; };
+		99ABF148130D3C6400462754 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		99ABF12E130D3C6400462754 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				99ABF136130D3C6400462754 /* UIKit.framework in Frameworks */,
+				99ABF138130D3C6400462754 /* Foundation.framework in Frameworks */,
+				99ABF13A130D3C6400462754 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		99ABF126130D3C6400462754 = {
+			isa = PBXGroup;
+			children = (
+				99ABF13B130D3C6400462754 /* TCImageViewDemo */,
+				99ABF134130D3C6400462754 /* Frameworks */,
+				99ABF132130D3C6400462754 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		99ABF132130D3C6400462754 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				99ABF131130D3C6400462754 /* TCImageViewDemo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		99ABF134130D3C6400462754 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				99ABF135130D3C6400462754 /* UIKit.framework */,
+				99ABF137130D3C6400462754 /* Foundation.framework */,
+				99ABF139130D3C6400462754 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		99ABF13B130D3C6400462754 /* TCImageViewDemo */ = {
+			isa = PBXGroup;
+			children = (
+				99ABF144130D3C6400462754 /* TCImageViewDemoAppDelegate.h */,
+				99ABF145130D3C6400462754 /* TCImageViewDemoAppDelegate.m */,
+				99ABF147130D3C6400462754 /* MainWindow.xib */,
+				99ABF13C130D3C6400462754 /* Supporting Files */,
+			);
+			path = TCImageViewDemo;
+			sourceTree = "<group>";
+		};
+		99ABF13C130D3C6400462754 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				99ABF13D130D3C6400462754 /* TCImageViewDemo-Info.plist */,
+				99ABF13E130D3C6400462754 /* InfoPlist.strings */,
+				99ABF141130D3C6400462754 /* TCImageViewDemo-Prefix.pch */,
+				99ABF142130D3C6400462754 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		99ABF130130D3C6400462754 /* TCImageViewDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 99ABF14C130D3C6400462754 /* Build configuration list for PBXNativeTarget "TCImageViewDemo" */;
+			buildPhases = (
+				99ABF12D130D3C6400462754 /* Sources */,
+				99ABF12E130D3C6400462754 /* Frameworks */,
+				99ABF12F130D3C6400462754 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TCImageViewDemo;
+			productName = TCImageViewDemo;
+			productReference = 99ABF131130D3C6400462754 /* TCImageViewDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		99ABF128130D3C6400462754 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				ORGANIZATIONNAME = 63BITS;
+			};
+			buildConfigurationList = 99ABF12B130D3C6400462754 /* Build configuration list for PBXProject "TCImageViewDemo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 99ABF126130D3C6400462754;
+			productRefGroup = 99ABF132130D3C6400462754 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				99ABF130130D3C6400462754 /* TCImageViewDemo */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		99ABF12F130D3C6400462754 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				99ABF140130D3C6400462754 /* InfoPlist.strings in Resources */,
+				99ABF149130D3C6400462754 /* MainWindow.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		99ABF12D130D3C6400462754 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				99ABF143130D3C6400462754 /* main.m in Sources */,
+				99ABF146130D3C6400462754 /* TCImageViewDemoAppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		99ABF13E130D3C6400462754 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				99ABF13F130D3C6400462754 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		99ABF147130D3C6400462754 /* MainWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				99ABF148130D3C6400462754 /* en */,
+			);
+			name = MainWindow.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		99ABF14A130D3C6400462754 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		99ABF14B130D3C6400462754 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+			};
+			name = Release;
+		};
+		99ABF14D130D3C6400462754 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TCImageViewDemo/TCImageViewDemo-Prefix.pch";
+				INFOPLIST_FILE = "TCImageViewDemo/TCImageViewDemo-Info.plist";
+				INSTALL_PATH = "$(LOCAL_APPS_DIR)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		99ABF14E130D3C6400462754 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TCImageViewDemo/TCImageViewDemo-Prefix.pch";
+				INFOPLIST_FILE = "TCImageViewDemo/TCImageViewDemo-Info.plist";
+				INSTALL_PATH = "$(LOCAL_APPS_DIR)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		99ABF12B130D3C6400462754 /* Build configuration list for PBXProject "TCImageViewDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				99ABF14A130D3C6400462754 /* Debug */,
+				99ABF14B130D3C6400462754 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		99ABF14C130D3C6400462754 /* Build configuration list for PBXNativeTarget "TCImageViewDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				99ABF14D130D3C6400462754 /* Debug */,
+				99ABF14E130D3C6400462754 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 99ABF128130D3C6400462754 /* Project object */;
+}
