@@ -8,10 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+
 @interface TCImageViewDemoAppDelegate : NSObject <UIApplicationDelegate> {
 
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
+
+
 
 @end
