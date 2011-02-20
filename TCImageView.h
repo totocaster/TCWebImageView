@@ -3,13 +3,13 @@
 //  TCImageViewDemo
 //
 //  Created by Toto Tvalavadze on 2/17/11.
-//  Copyright 2011 63BITS. All rights reserved.
+//  For license please visit: http://totocaster.com/source-code-license/
 //
 
 #import <Foundation/Foundation.h>
 
 #define CACHED_IMAGE_JPEG_QUALITY 1.0
-#define CACHED_IMAGE_FOLDER [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]
+#define CACHED_IMAGE_FOLDER [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"TCImageView-Cache"]
 
 @interface TCImageView : UIImageView {
     
@@ -36,7 +36,9 @@
 
 - (void)loadImage;
 
+- (NSString*)chachedImageSystemName;
 - (void)resetCache;
+- (void)resetGlobalCache; // This will remove all cached images managed by any TCImageView instatces
 
 
 @end
