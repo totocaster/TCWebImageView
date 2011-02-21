@@ -29,15 +29,15 @@
 {
     if (self.caching){
         NSFileManager *fileManager = [NSFileManager defaultManager];
-        if ([fileManager fileExistsAtPath:[CACHED_IMAGE_FOLDER stringByAppendingPathComponent:[self chachedImageSystemName]]])
+        if ([fileManager fileExistsAtPath:[[TCImageView cacheDirectoryAddress] stringByAppendingPathComponent:[self chachedImageSystemName]]])
         {
-            NSDate *mofificationDate = [[fileManager attributesOfItemAtPath:[CACHED_IMAGE_FOLDER stringByAppendingPathComponent:[self chachedImageSystemName]] error:nil] objectForKey:NSFileModificationDate];
+            NSDate *mofificationDate = [[fileManager attributesOfItemAtPath:[[TCImageView cacheDirectoryAddress] stringByAppendingPathComponent:[self chachedImageSystemName]] error:nil] objectForKey:NSFileModificationDate];
             if ([mofificationDate timeIntervalSinceNow] > self.cacheTime) {
                 // Removes old cache file...
                 [self resetCache];
             } else {
                 // Loads image from cache without networking
-                NSData *localImageData = [NSData dataWithContentsOfFile:[CACHED_IMAGE_FOLDER stringByAppendingPathComponent:[self chachedImageSystemName]]];
+                NSData *localImageData = [NSData dataWithContentsOfFile:[[TCImageView cacheDirectoryAddress] stringByAppendingPathComponent:[self chachedImageSystemName]]];
                 self.image = [UIImage imageWithData:localImageData];
                 return;
             }
@@ -67,17 +67,17 @@
     {
         // Create Cache directory if it doesn't exist
         BOOL isDir = YES;
-        if (![fileManager fileExistsAtPath:CACHED_IMAGE_FOLDER isDirectory:&isDir]) {
-            [fileManager createDirectoryAtPath:CACHED_IMAGE_FOLDER withIntermediateDirectories:NO attributes:nil error:nil];
+        if (![fileManager fileExistsAtPath:[TCImageView cacheDirectoryAddress] isDirectory:&isDir]) {
+            [fileManager createDirectoryAtPath:[TCImageView cacheDirectoryAddress] withIntermediateDirectories:NO attributes:nil error:nil];
         }
         
         // Write image cache file
         NSError *error;
         NSData *cachedImage = UIImageJPEGRepresentation(self.image, CACHED_IMAGE_JPEG_QUALITY);
-        [cachedImage writeToFile:[CACHED_IMAGE_FOLDER stringByAppendingPathComponent:[self chachedImageSystemName]] options:NSDataWritingAtomic error:&error];
-        if (error) {
-            NSLog(@"TCImageView error: %@",[error description]);
-        }
+       
+        [cachedImage writeToFile:[[TCImageView cacheDirectoryAddress] stringByAppendingPathComponent:[self chachedImageSystemName]] options:NSDataWritingAtomic error:&error];
+        
+        // TODO: error handling
     }
     
     [data release], data = nil;
@@ -86,6 +86,24 @@
 
 #pragma -
 #pragma Caching Methods
+
+
++ (void)resetGlobalCache
+{
+    [[NSFileManager defaultManager] removeItemAtPath:[TCImageView cacheDirectoryAddress] error:nil];
+}
+
++ (NSString*)cacheDirectoryAddress
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectoryPath = [paths objectAtIndex:0];
+    return [documentsDirectoryPath stringByAppendingPathComponent:@"TCImageView-Cache"];
+}
+
+- (void)resetCache
+{
+    [[NSFileManager defaultManager] removeItemAtPath:[[TCImageView cacheDirectoryAddress] stringByAppendingPathComponent:[self chachedImageSystemName]] error:nil];
+}
 
 - (NSString*)chachedImageSystemName
 {
@@ -96,16 +114,6 @@
     for (int i = 0; i < 16; i++)
         [hash appendFormat:@"%02X", result[i]];
     return [[hash lowercaseString] stringByAppendingPathExtension:@"jpeg"];
-}
-
-- (void)resetCache
-{
-    [[NSFileManager defaultManager] removeItemAtPath:[CACHED_IMAGE_FOLDER stringByAppendingPathComponent:[self chachedImageSystemName]] error:nil];
-}
-
-- (void)resetGlobalCache
-{
-    [[NSFileManager defaultManager] removeItemAtPath:CACHED_IMAGE_FOLDER error:nil];
 }
 
 #pragma -

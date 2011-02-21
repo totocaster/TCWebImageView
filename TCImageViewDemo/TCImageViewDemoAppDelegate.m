@@ -17,9 +17,9 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     
-    TCImageView *image = [[TCImageView alloc] initWithURL:[NSURL URLWithString:@"http://farm6.static.flickr.com/5049/5257687720_94c541b5d0_b.jpg"] placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
+    TCImageView *image = [[TCImageView alloc] initWithURL:[NSURL URLWithString:@"http://farm6.static.flickr.com/5051/5459247881_ec423d6611_b.jpg"] placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
     image.frame = CGRectMake(10.0, 50.0, 300.0, 200.0);
-    image.caching = YES; // Change to NO to disable off-line caching
+    image.caching = YES; // Remove line or change to NO to disable off-line caching
     
     [image loadImage];
     

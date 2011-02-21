@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 
 #define CACHED_IMAGE_JPEG_QUALITY 1.0
-#define CACHED_IMAGE_FOLDER [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"TCImageView-Cache"]
 
 @interface TCImageView : UIImageView {
     
@@ -31,14 +30,15 @@
 @property (assign,readwrite,getter = isCaching) BOOL caching;
 @property (assign,readwrite) NSTimeInterval cacheTime;
 
++ (void)resetGlobalCache; // This will remove all cached images managed by any TCImageView instatces
++ (NSString*)cacheDirectoryAddress;
 
 - (id)initWithURL:(NSURL *)url placeholderImage:(UIImage *)image;
 
 - (void)loadImage;
 
 - (NSString*)chachedImageSystemName;
-- (void)resetCache;
-- (void)resetGlobalCache; // This will remove all cached images managed by any TCImageView instatces
 
+- (void)resetCache;
 
 @end
