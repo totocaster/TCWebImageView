@@ -7,14 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TCImageView.h"
 
 
-@interface TCImageViewDemoAppDelegate : NSObject <UIApplicationDelegate> {
-
+@interface TCImageViewDemoAppDelegate : NSObject <UIApplicationDelegate, TCImageViewDelegate> {
+    
+    TCImageView *_image;
+    UIButton *_button;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 
+
+-(void) buttonTapped: (UIButton *) sender;
 
 
 @end
