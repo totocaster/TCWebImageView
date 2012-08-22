@@ -237,10 +237,6 @@
 	{
 		return @"";
 	}
-	else {
-		//NSLog(@"%@", url);
-	}
-    
 	
     unsigned char result[CC_MD5_DIGEST_LENGTH];
     CC_MD5(concat_str, strlen(concat_str), result);
@@ -250,9 +246,5 @@
 	
     return [[hash lowercaseString] stringByAppendingPathExtension:@"jpeg"];
 }
-
-#pragma mark -
-#pragma mark Memory and Clean-up
-
 
 @end

@@ -50,7 +50,7 @@
 
 #pragma mark Button Events
 
--(void) buttonTapped: (UIButton *) sender {
+-(void)buttonTapped:(UIButton *)sender {
     
     
     [_image reloadWithUrl:@"http://farm6.static.flickr.com/5226/5704412488_ee6a6c9124_b.jpg"];
