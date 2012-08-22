@@ -4,11 +4,11 @@
 //
 
 
-#import "TCImageView.h"
+#import "TCNetworkImageView.h"
 #import <CommonCrypto/CommonDigest.h>
 
 
-@implementation TCImageView
+@implementation TCNetworkImageView
 
 @synthesize caching = _caching, url = _url, placeholder = _placeholder, cacheTime = _cacheTime, delegate = _delegate;
 
@@ -55,19 +55,19 @@
     
     if (self.caching){
         NSFileManager *fileManager = [NSFileManager defaultManager];
-        if ([fileManager fileExistsAtPath:[[TCImageView cacheDirectoryAddress] stringByAppendingPathComponent:[self cachedImageSystemName]]])
+        if ([fileManager fileExistsAtPath:[[TCNetworkImageView cacheDirectoryAddress] stringByAppendingPathComponent:[self cachedImageSystemName]]])
         {
-            NSDate *mofificationDate = [[fileManager attributesOfItemAtPath:[[TCImageView cacheDirectoryAddress] stringByAppendingPathComponent:[self cachedImageSystemName]] error:nil] objectForKey:NSFileModificationDate];
+            NSDate *mofificationDate = [[fileManager attributesOfItemAtPath:[[TCNetworkImageView cacheDirectoryAddress] stringByAppendingPathComponent:[self cachedImageSystemName]] error:nil] objectForKey:NSFileModificationDate];
             if ([mofificationDate timeIntervalSinceNow] > self.cacheTime) {
                 // Removes old cache file...
                 [self resetCache];
             } else {
                 // Loads image from cache without networking
-                NSData *localImageData = [NSData dataWithContentsOfFile:[[TCImageView cacheDirectoryAddress] stringByAppendingPathComponent:[self cachedImageSystemName]]];
+                NSData *localImageData = [NSData dataWithContentsOfFile:[[TCNetworkImageView cacheDirectoryAddress] stringByAppendingPathComponent:[self cachedImageSystemName]]];
 				UIImage *localImage = [UIImage imageWithData:localImageData];
 				
-                if ([self.delegate respondsToSelector:@selector(TCImageView:willUpdateImage:)]) {
-                    [self.delegate TCImageView:self willUpdateImage:localImage];
+                if ([self.delegate respondsToSelector:@selector(networkImageView:willUpdateImage:)]) {
+                    [self.delegate networkImageView:self willUpdateImage:localImage];
                 }
 				
                 self.image = localImage;
@@ -80,8 +80,8 @@
 					[_placeholder setAlpha:0];
 				}
 				
-                if ([self.delegate respondsToSelector:@selector(TCImageView:didFinishLoadingImage:fromCache:)]) {
-                    [self.delegate TCImageView:self didFinishLoadingImage:localImage fromCache:YES];
+                if ([self.delegate respondsToSelector:@selector(networkImageView:didFinishLoadingImage:fromCache:)]) {
+                    [self.delegate networkImageView:self didFinishLoadingImage:localImage fromCache:YES];
                 } 
                 
 				//NSLog(@"TCImage loadImage; delegate release");
@@ -138,8 +138,8 @@
 
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
     
-    if (_delegate && [_delegate respondsToSelector:@selector(TCImageView:failedWithError:)]) {
-        [_delegate TCImageView:self failedWithError:error];
+    if (_delegate && [_delegate respondsToSelector:@selector(networkImageView:failedWithError:)]) {
+        [_delegate networkImageView:self failedWithError:error];
     }
     
     _expectedFileSize = 0;
@@ -162,8 +162,8 @@
     if (_data == nil)
         _data = [[NSMutableData alloc] initWithCapacity:2048];
     
-    if ([self.delegate respondsToSelector:@selector(TCImageView:loadedBytes:totalBytes:)]) {
-        [self.delegate TCImageView:self loadedBytes:(long long)_data.length totalBytes:_expectedFileSize];
+    if ([self.delegate respondsToSelector:@selector(networkImageView:loadedBytes:totalBytes:)]) {
+        [self.delegate networkImageView:self loadedBytes:(long long)_data.length totalBytes:_expectedFileSize];
     }
     
     [_data appendData:incrementalData];
@@ -176,8 +176,8 @@
 	
 	UIImage *imageData = [UIImage imageWithData:_data];
     
-    if ([self.delegate respondsToSelector:@selector(TCImageView:WillUpdateImage:)]) {
-        [self.delegate TCImageView:self willUpdateImage:imageData];
+    if ([self.delegate respondsToSelector:@selector(networkImageView:WillUpdateImage:)]) {
+        [self.delegate networkImageView:self willUpdateImage:imageData];
     }
     
     self.image = imageData;
@@ -191,8 +191,8 @@
     {
         // Create Cache directory if it doesn't exist
         BOOL isDir = YES;
-        if (![fileManager fileExistsAtPath:[TCImageView cacheDirectoryAddress] isDirectory:&isDir]) {
-            [fileManager createDirectoryAtPath:[TCImageView cacheDirectoryAddress] withIntermediateDirectories:NO attributes:nil error:nil];
+        if (![fileManager fileExistsAtPath:[TCNetworkImageView cacheDirectoryAddress] isDirectory:&isDir]) {
+            [fileManager createDirectoryAtPath:[TCNetworkImageView cacheDirectoryAddress] withIntermediateDirectories:NO attributes:nil error:nil];
         }
         
         // Write image cache file
@@ -200,12 +200,12 @@
         NSData *cachedImage = UIImageJPEGRepresentation(self.image, CACHED_IMAGE_JPEG_QUALITY);
         
 		@try {
-			[cachedImage writeToFile:[[TCImageView cacheDirectoryAddress] stringByAppendingPathComponent:[self cachedImageSystemName]] options:NSDataWritingAtomic error:&error];
+			[cachedImage writeToFile:[[TCNetworkImageView cacheDirectoryAddress] stringByAppendingPathComponent:[self cachedImageSystemName]] options:NSDataWritingAtomic error:&error];
 		}
 		@catch (NSException * e) {
-			if ([self.delegate respondsToSelector:@selector(TCImageView:failedWithError:)]) {
+			if ([self.delegate respondsToSelector:@selector(networkImageView:failedWithError:)]) {
                 NSError *error = [NSError errorWithDomain:@"No image fount in cache" code:001 userInfo:nil];
-                [self.delegate TCImageView:self failedWithError:error];
+                [self.delegate networkImageView:self failedWithError:error];
             }
 		}
     }
@@ -216,8 +216,8 @@
 	[_connection cancel];
     _connection = nil;
 	
-    if ([self.delegate respondsToSelector:@selector(TCImageView:FinisehdImage:)]) {
-        [self.delegate TCImageView:self didFinishLoadingImage:imageData fromCache:NO];
+    if ([self.delegate respondsToSelector:@selector(networkImageView:FinisehdImage:)]) {
+        [self.delegate networkImageView:self didFinishLoadingImage:imageData fromCache:NO];
     }     
     
     
@@ -232,19 +232,19 @@
 
 + (void)resetGlobalCache
 {
-    [[NSFileManager defaultManager] removeItemAtPath:[TCImageView cacheDirectoryAddress] error:nil];
+    [[NSFileManager defaultManager] removeItemAtPath:[TCNetworkImageView cacheDirectoryAddress] error:nil];
 }
 
 + (NSString*)cacheDirectoryAddress
 {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectoryPath = [paths objectAtIndex:0];
-    return [documentsDirectoryPath stringByAppendingPathComponent:@"TCImageView-Cache"];
+    return [documentsDirectoryPath stringByAppendingPathComponent:@"TCNetworkImageView-Cache"];
 }
 
 - (void)resetCache
 {
-    [[NSFileManager defaultManager] removeItemAtPath:[[TCImageView cacheDirectoryAddress] stringByAppendingPathComponent:[self cachedImageSystemName]] error:nil];
+    [[NSFileManager defaultManager] removeItemAtPath:[[TCNetworkImageView cacheDirectoryAddress] stringByAppendingPathComponent:[self cachedImageSystemName]] error:nil];
 }
 
 - (NSString*)cachedImageSystemName

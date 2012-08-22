@@ -17,7 +17,7 @@
 		99ABF143130D3C6400462754 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 99ABF142130D3C6400462754 /* main.m */; };
 		99ABF146130D3C6400462754 /* TCImageViewDemoAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 99ABF145130D3C6400462754 /* TCImageViewDemoAppDelegate.m */; };
 		99ABF149130D3C6400462754 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 99ABF147130D3C6400462754 /* MainWindow.xib */; };
-		99ABF151130D3C9200462754 /* TCImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 99ABF150130D3C9200462754 /* TCImageView.m */; };
+		99ABF151130D3C9200462754 /* TCNetworkImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 99ABF150130D3C9200462754 /* TCNetworkImageView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,8 +35,8 @@
 		99ABF144130D3C6400462754 /* TCImageViewDemoAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TCImageViewDemoAppDelegate.h; sourceTree = "<group>"; };
 		99ABF145130D3C6400462754 /* TCImageViewDemoAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TCImageViewDemoAppDelegate.m; sourceTree = "<group>"; };
 		99ABF148130D3C6400462754 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
-		99ABF14F130D3C9200462754 /* TCImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCImageView.h; sourceTree = "<group>"; };
-		99ABF150130D3C9200462754 /* TCImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCImageView.m; sourceTree = "<group>"; };
+		99ABF14F130D3C9200462754 /* TCNetworkImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCNetworkImageView.h; sourceTree = "<group>"; };
+		99ABF150130D3C9200462754 /* TCNetworkImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCNetworkImageView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,7 +57,7 @@
 			isa = PBXGroup;
 			children = (
 				9976905B13112911003E1E17 /* README */,
-				99ABF152130D3C9700462754 /* TCImageView */,
+				99ABF152130D3C9700462754 /* TCNetworkImageView */,
 				99ABF13B130D3C6400462754 /* TCImageViewDemo */,
 				99ABF134130D3C6400462754 /* Frameworks */,
 				99ABF132130D3C6400462754 /* Products */,
@@ -106,13 +106,13 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		99ABF152130D3C9700462754 /* TCImageView */ = {
+		99ABF152130D3C9700462754 /* TCNetworkImageView */ = {
 			isa = PBXGroup;
 			children = (
-				99ABF14F130D3C9200462754 /* TCImageView.h */,
-				99ABF150130D3C9200462754 /* TCImageView.m */,
+				99ABF14F130D3C9200462754 /* TCNetworkImageView.h */,
+				99ABF150130D3C9200462754 /* TCNetworkImageView.m */,
 			);
-			name = TCImageView;
+			name = TCNetworkImageView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -182,7 +182,7 @@
 			files = (
 				99ABF143130D3C6400462754 /* main.m in Sources */,
 				99ABF146130D3C6400462754 /* TCImageViewDemoAppDelegate.m in Sources */,
-				99ABF151130D3C9200462754 /* TCImageView.m in Sources */,
+				99ABF151130D3C9200462754 /* TCNetworkImageView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
