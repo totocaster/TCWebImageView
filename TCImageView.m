@@ -80,8 +80,8 @@
 					[_placeholder setAlpha:0];
 				}
 				
-                if ([self.delegate respondsToSelector:@selector(TCImageView:finisehdLoadingImage:fromCache:)]) {
-                    [self.delegate TCImageView:self finisehdLoadingImage:localImage fromCache:YES];
+                if ([self.delegate respondsToSelector:@selector(TCImageView:didFinishLoadingImage:fromCache:)]) {
+                    [self.delegate TCImageView:self didFinishLoadingImage:localImage fromCache:YES];
                 } 
                 
 				//NSLog(@"TCImage loadImage; delegate release");
@@ -92,9 +92,12 @@
         }
     }
     // Loads image from network if no "return;" is triggered (no cache file found)
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[self.url stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding]  ] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:30.0];
     
+    _expectedFileSize = 0;
+    
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[self.url stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding]  ] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:30.0];
     _connection = [[NSURLConnection alloc] initWithRequest:request delegate:self  ];
+    
 }
 
 
@@ -104,6 +107,7 @@
         
         [_connection cancel];
         
+        _expectedFileSize = 0;
         _data = nil;
         _connection = nil;
         
@@ -130,13 +134,15 @@
 
 
 #pragma - 
-#pragma NSURLConnection Delegates
+#pragma Networking Delegates
 
--(void) connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+-(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
     
     if (_delegate && [_delegate respondsToSelector:@selector(TCImageView:failedWithError:)]) {
         [_delegate TCImageView:self failedWithError:error];
     }
+    
+    _expectedFileSize = 0;
     
     _data = nil;
     [_connection cancel];
@@ -145,12 +151,20 @@
     
 }
 
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
+    _expectedFileSize = [response expectedContentLength];
+}
 
-- (void)connection:(NSURLConnection *)theConnection didReceiveData:(NSData *)incrementalData 
+
+- (void)connection:(NSURLConnection *)theConnection didReceiveData:(NSData *)incrementalData
 {
-    //	NSLog(@"didReceiveData");
+    // NSLog(@"didReceiveData");
     if (_data == nil)
         _data = [[NSMutableData alloc] initWithCapacity:2048];
+    
+    if ([self.delegate respondsToSelector:@selector(TCImageView:loadedBytes:totalBytes:)]) {
+        [self.delegate TCImageView:self loadedBytes:(long long)_data.length totalBytes:_expectedFileSize];
+    }
     
     [_data appendData:incrementalData];
 }
@@ -200,7 +214,7 @@
     _connection = nil;
 	
     if ([self.delegate respondsToSelector:@selector(TCImageView:FinisehdImage:)]) {
-        [self.delegate TCImageView:self finisehdLoadingImage:imageData fromCache:NO];
+        [self.delegate TCImageView:self didFinishLoadingImage:imageData fromCache:NO];
     }     
     
     

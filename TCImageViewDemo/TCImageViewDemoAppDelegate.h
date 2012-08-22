@@ -14,6 +14,9 @@
     
     TCImageView *_image;
     UIButton *_button;
+    UIButton *_clearCacheButton;
+    
+    UIProgressView *_progressBar;
 }
 
 @property (nonatomic, strong) IBOutlet UIWindow *window;

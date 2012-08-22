@@ -15,8 +15,9 @@
 
 @optional
 -(void)TCImageView:(TCImageView *)view willUpdateImage:(UIImage *)image;
--(void)TCImageView:(TCImageView *)view finisehdLoadingImage:(UIImage *)image fromCache:(BOOL)fromCache;
+-(void)TCImageView:(TCImageView *)view didFinishLoadingImage:(UIImage *)image fromCache:(BOOL)fromCache;
 -(void)TCImageView:(TCImageView *)view failedWithError:(NSError *)error;
+-(void)TCImageView:(TCImageView *)view loadedBytes:(long long)loadedBytes totalBytes:(long long)totalBytes;
 
 @end
 
@@ -31,6 +32,7 @@
     // Networking
     NSURLConnection *_connection;
     NSMutableData *_data;
+    long long _expectedFileSize;
     
     // Caching
     BOOL _caching;

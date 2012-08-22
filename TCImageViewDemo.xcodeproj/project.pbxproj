@@ -57,7 +57,7 @@
 			isa = PBXGroup;
 			children = (
 				9976905B13112911003E1E17 /* README */,
-				99ABF152130D3C9700462754 /* TCIMageView */,
+				99ABF152130D3C9700462754 /* TCImageView */,
 				99ABF13B130D3C6400462754 /* TCImageViewDemo */,
 				99ABF134130D3C6400462754 /* Frameworks */,
 				99ABF132130D3C6400462754 /* Products */,
@@ -106,13 +106,13 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		99ABF152130D3C9700462754 /* TCIMageView */ = {
+		99ABF152130D3C9700462754 /* TCImageView */ = {
 			isa = PBXGroup;
 			children = (
 				99ABF14F130D3C9200462754 /* TCImageView.h */,
 				99ABF150130D3C9200462754 /* TCImageView.m */,
 			);
-			name = TCIMageView;
+			name = TCImageView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
