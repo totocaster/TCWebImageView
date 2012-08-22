@@ -71,7 +71,7 @@
 
 #pragma mark TCImageViewDelegate
 
--(void)TCImageView:(TCNetworkImageView *)view willUpdateImage:(UIImage *)image {
+-(void)networkImageView:(TCNetworkImageView *)view willUpdateImage:(UIImage *)image {
     
     view.alpha = 0.0;
     
@@ -86,7 +86,7 @@
 }
 
 
--(void)TCImageView:(TCNetworkImageView *)view didFinishLoadingImage:(UIImage *)image fromCache:(BOOL)fromCache {
+-(void)networkImageView:(TCNetworkImageView *)view didFinishLoadingImage:(UIImage *)image fromCache:(BOOL)fromCache {
     
     NSLog(@"Image was loaded using cache: %d",fromCache);
     
@@ -94,7 +94,7 @@
 }
 
 
--(void)TCImageView:(TCNetworkImageView *)view failedWithError:(NSError *)error {
+-(void)networkImageView:(TCNetworkImageView *)view failedWithError:(NSError *)error {
     
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Error Loading URL" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
     
@@ -102,7 +102,7 @@
     
 }
 
--(void)TCImageView:(TCNetworkImageView *)view loadedBytes:(long long)loadedBytes totalBytes:(long long)totalBytes
+-(void)networkImageView:(TCNetworkImageView *)view loadedBytes:(long long)loadedBytes totalBytes:(long long)totalBytes
 {
     _progressBar.progress = (double)loadedBytes / (double)totalBytes;
 }
