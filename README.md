@@ -56,6 +56,6 @@ This project includes demo app that shows all of it's functionality in a very si
 
 Licence
 -------
-You are free to use this code anywhere you like, even in production only if you include follwoing line in you application credits: `YourAppName contains TCWebImageView (https://github.com/totocaster/TCWebImageView) code by Toto Tvalavadze (@totocaster, totocaster@me.com)`.
+You are free to use this code anywhere you like, even in production only if you include follwoing line in you application credits: "YourAppName contains TCWebImageView (https://github.com/totocaster/TCWebImageView) code by Toto Tvalavadze (@totocaster, totocaster@me.com) and it's collaborators from GitHub".
 
 Thanks!
