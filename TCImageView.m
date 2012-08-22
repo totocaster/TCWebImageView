@@ -19,7 +19,6 @@
     
     self = [self initWithURL:[imageURL absoluteString] placeholderView:placeholderView];
     
-    [placeholderView release];
     
     return self;
 }
@@ -31,14 +30,14 @@
 	{
 		// Defaults
 		_placeholder = nil;
-		_url = [imageURL retain];
+		_url = imageURL;
 		self.caching = NO;
 		self.cacheTime = (double)604800; // 7 days
 		self.delegate = nil;
 		
 		if (placeholderView != nil)
 		{
-			_placeholder = [placeholderView retain];
+			_placeholder = placeholderView;
 			_placeholder.alpha = _placeholder.alpha < 0.1 ? 1.0 : _placeholder.alpha;
             [self addSubview:_placeholder];
             
@@ -54,7 +53,6 @@
 {
 	//NSLog(@"TCImage loadImage; delegate retain");
     
-	[self.delegate retain];
     if (self.caching){
         NSFileManager *fileManager = [NSFileManager defaultManager];
         if ([fileManager fileExistsAtPath:[[TCImageView cacheDirectoryAddress] stringByAppendingPathComponent:[self cachedImageSystemName]]])
@@ -88,7 +86,6 @@
                 
 				//NSLog(@"TCImage loadImage; delegate release");
                 
-				[_delegate release];
                 
                 return;
             }
@@ -107,10 +104,9 @@
         
         [_connection cancel];
         
-        [_data release], _data = nil;
-        [_connection release], _connection = nil;
+        _data = nil;
+        _connection = nil;
         
-        [_delegate release];
         
     }
 }
@@ -125,8 +121,8 @@
         _placeholder.alpha = 1.0;
     }
     
-    [_url release], _url = nil;
-    _url = [url retain];
+    _url = nil;
+    _url = url;
     
     [self loadImage];
     
@@ -142,11 +138,10 @@
         [_delegate TCImageView:self failedWithError:error];
     }
     
-    [_data release], _data = nil;
+    _data = nil;
     [_connection cancel];
-	[_connection release], _connection = nil;
+	_connection = nil;
     
-    [_delegate release];
     
 }
 
@@ -200,9 +195,9 @@
 	
     
     
-    [_data release], _data = nil;
+    _data = nil;
 	[_connection cancel];
-    [_connection release], _connection = nil;
+    _connection = nil;
 	
     if ([self.delegate respondsToSelector:@selector(TCImageView:FinisehdImage:)]) {
         [self.delegate TCImageView:self FinisehdImage:imageData];
@@ -211,7 +206,6 @@
     
 	//NSLog(@"TCImage connectionDidFinishLoading; delegate release");
     
-	[_delegate release];
 }
 
 
@@ -260,12 +254,5 @@
 #pragma mark -
 #pragma mark Memory and Clean-up
 
-- (void)dealloc
-{
-    [_placeholder release];
-    [_url release];
-    [super dealloc];
-    
-}
 
 @end

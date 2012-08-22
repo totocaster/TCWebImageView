@@ -90,7 +90,6 @@
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Error Loading URL" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
     
     [alert show];
-    [alert release];
     
     _button.enabled = YES;
     _button.alpha = 1.0;
@@ -100,11 +99,5 @@
 
 #pragma mark Memory
 
-- (void)dealloc
-{
-    [_image release];
-    [_window release];
-    [super dealloc];
-}
 
 @end

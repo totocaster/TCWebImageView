@@ -36,7 +36,7 @@
     BOOL _caching;
     NSTimeInterval _cacheTime;
 	
-	id<TCImageViewDelegate> _delegate;
+	id<TCImageViewDelegate> __unsafe_unretained _delegate;
     
 }
 @property (readonly) NSString* url;
@@ -44,7 +44,7 @@
 @property (assign,readwrite,getter = isCaching) BOOL caching;
 @property (assign,readwrite) NSTimeInterval cacheTime;
 
-@property (assign) id<TCImageViewDelegate> delegate;
+@property (unsafe_unretained) id<TCImageViewDelegate> delegate;
 
 + (void)resetGlobalCache; // This will remove all cached images managed by any TCImageView instatces
 + (NSString*)cacheDirectoryAddress;
@@ -56,7 +56,7 @@
 - (void)loadImage;
 - (void)cancelLoad;
 
-- (void) reloadWithUrl: (NSString *) url;
+- (void)reloadWithUrl:(NSString *)url;
 
 - (NSString*)cachedImageSystemName;
 

@@ -16,7 +16,7 @@
     UIButton *_button;
 }
 
-@property (nonatomic, retain) IBOutlet UIWindow *window;
+@property (nonatomic, strong) IBOutlet UIWindow *window;
 
 
 -(void) buttonTapped: (UIButton *) sender;
