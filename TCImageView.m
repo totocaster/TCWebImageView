@@ -66,8 +66,8 @@
                 NSData *localImageData = [NSData dataWithContentsOfFile:[[TCImageView cacheDirectoryAddress] stringByAppendingPathComponent:[self cachedImageSystemName]]];
 				UIImage *localImage = [UIImage imageWithData:localImageData];
 				
-                if ([self.delegate respondsToSelector:@selector(TCImageView:WillUpdateImage:)]) {
-                    [self.delegate TCImageView:self WillUpdateImage:localImage];
+                if ([self.delegate respondsToSelector:@selector(TCImageView:willUpdateImage:)]) {
+                    [self.delegate TCImageView:self willUpdateImage:localImage];
                 }
 				
                 self.image = localImage;
@@ -80,8 +80,8 @@
 					[_placeholder setAlpha:0];
 				}
 				
-                if ([self.delegate respondsToSelector:@selector(TCImageView:FinisehdImage:)]) {
-                    [self.delegate TCImageView:self FinisehdImage:localImage];
+                if ([self.delegate respondsToSelector:@selector(TCImageView:finisehdLoadingImage:fromCache:)]) {
+                    [self.delegate TCImageView:self finisehdLoadingImage:localImage fromCache:YES];
                 } 
                 
 				//NSLog(@"TCImage loadImage; delegate release");
@@ -163,7 +163,7 @@
 	UIImage *imageData = [UIImage imageWithData:_data];
     
     if ([self.delegate respondsToSelector:@selector(TCImageView:WillUpdateImage:)]) {
-        [self.delegate TCImageView:self WillUpdateImage:imageData];
+        [self.delegate TCImageView:self willUpdateImage:imageData];
     }
     
     self.image = imageData;
@@ -200,7 +200,7 @@
     _connection = nil;
 	
     if ([self.delegate respondsToSelector:@selector(TCImageView:FinisehdImage:)]) {
-        [self.delegate TCImageView:self FinisehdImage:imageData];
+        [self.delegate TCImageView:self finisehdLoadingImage:imageData fromCache:NO];
     }     
     
     

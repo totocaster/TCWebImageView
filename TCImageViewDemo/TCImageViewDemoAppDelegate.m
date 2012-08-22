@@ -62,7 +62,7 @@
 
 #pragma mark TCImageViewDelegate
 
--(void)TCImageView:(TCImageView *)view WillUpdateImage:(UIImage *)image {
+-(void)TCImageView:(TCImageView *)view willUpdateImage:(UIImage *)image {
     
     view.alpha = 0.0;
     
@@ -77,7 +77,9 @@
 }
 
 
--(void)TCImageView:(TCImageView *)view FinisehdImage:(UIImage *)image {
+-(void)TCImageView:(TCImageView *)view finisehdLoadingImage:(UIImage *)image fromCache:(BOOL)fromCache {
+    
+    NSLog(@"Image was loaded using cache: %d",fromCache);
     
     _button.enabled = YES;
     _button.alpha = 1.0;

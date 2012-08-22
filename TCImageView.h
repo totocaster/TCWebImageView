@@ -14,9 +14,9 @@
 @protocol TCImageViewDelegate<NSObject>
 
 @optional
--(void) TCImageView:(TCImageView *) view WillUpdateImage:(UIImage *)image;
--(void) TCImageView:(TCImageView *) view FinisehdImage:(UIImage *)image;
--(void) TCImageView:(TCImageView *) view failedWithError:(NSError *)error;
+-(void)TCImageView:(TCImageView *)view willUpdateImage:(UIImage *)image;
+-(void)TCImageView:(TCImageView *)view finisehdLoadingImage:(UIImage *)image fromCache:(BOOL)fromCache;
+-(void)TCImageView:(TCImageView *)view failedWithError:(NSError *)error;
 
 @end
 
