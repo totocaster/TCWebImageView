@@ -37,7 +37,7 @@
     [_clearCacheButton addTarget:self action:@selector(clearCacheButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     [self.window addSubview:_clearCacheButton];
     
-    _image = [[TCNetworkImageView alloc] initWithURL:[NSURL URLWithString:@"http://farm6.static.flickr.com/5051/5459247881_ec423d6611_b.jpg"] placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
+    _image = [[TCWebImageView alloc] initWithURL:[NSURL URLWithString:@"http://farm6.static.flickr.com/5051/5459247881_ec423d6611_b.jpg"] placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
     _image.frame = CGRectMake(10.0, 50.0, 300.0, 200.0);
     _image.caching = YES; // Remove line or change to NO to disable off-line caching
     _image.delegate = self;
@@ -66,12 +66,12 @@
 
 -(void)clearCacheButtonTapped:(id)sender
 {
-    [TCNetworkImageView resetGlobalCache];
+    [TCWebImageView resetGlobalCache];
 }
 
 #pragma mark TCImageViewDelegate
 
--(void)networkImageView:(TCNetworkImageView *)view willUpdateImage:(UIImage *)image {
+-(void)webImageView:(TCWebImageView *)view willUpdateImage:(UIImage *)image {
     
     view.alpha = 0.0;
     
@@ -86,7 +86,7 @@
 }
 
 
--(void)networkImageView:(TCNetworkImageView *)view didFinishLoadingImage:(UIImage *)image fromCache:(BOOL)fromCache {
+-(void)webImageView:(TCWebImageView *)view didFinishLoadingImage:(UIImage *)image fromCache:(BOOL)fromCache {
     
     NSLog(@"Image was loaded using cache: %d",fromCache);
     
@@ -94,7 +94,7 @@
 }
 
 
--(void)networkImageView:(TCNetworkImageView *)view failedWithError:(NSError *)error {
+-(void)webImageView:(TCWebImageView *)view failedWithError:(NSError *)error {
     
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Error Loading URL" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
     
@@ -102,7 +102,7 @@
     
 }
 
--(void)networkImageView:(TCNetworkImageView *)view loadedBytes:(long long)loadedBytes totalBytes:(long long)totalBytes
+-(void)webImageView:(TCWebImageView *)view loadedBytes:(long long)loadedBytes totalBytes:(long long)totalBytes
 {
     _progressBar.progress = (double)loadedBytes / (double)totalBytes;
 }

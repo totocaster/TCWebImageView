@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TCNetworkImageView.h"
+#import "TCWebImageView.h"
 
 
 @interface TCImageViewDemoAppDelegate : NSObject <UIApplicationDelegate, TCImageViewDelegate> {
     
-    TCNetworkImageView *_image;
+    TCWebImageView *_image;
     UIButton *_button;
     UIButton *_clearCacheButton;
     

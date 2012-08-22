@@ -9,21 +9,21 @@
 #define CACHED_IMAGE_JPEG_QUALITY 1.0
 
 
-@class TCNetworkImageView;
+@class TCWebImageView;
 
 @protocol TCImageViewDelegate<NSObject>
 
 @optional
--(void)networkImageView:(TCNetworkImageView *)view willUpdateImage:(UIImage *)image;
--(void)networkImageView:(TCNetworkImageView *)view didFinishLoadingImage:(UIImage *)image fromCache:(BOOL)fromCache;
--(void)networkImageView:(TCNetworkImageView *)view failedWithError:(NSError *)error;
--(void)networkImageView:(TCNetworkImageView *)view loadedBytes:(long long)loadedBytes totalBytes:(long long)totalBytes;
+-(void)webImageView:(TCWebImageView *)view willUpdateImage:(UIImage *)image;
+-(void)webImageView:(TCWebImageView *)view didFinishLoadingImage:(UIImage *)image fromCache:(BOOL)fromCache;
+-(void)webImageView:(TCWebImageView *)view failedWithError:(NSError *)error;
+-(void)webImageView:(TCWebImageView *)view loadedBytes:(long long)loadedBytes totalBytes:(long long)totalBytes;
 
 @end
 
 
 
-@interface TCNetworkImageView : UIImageView {
+@interface TCWebImageView : UIImageView {
     
     // Default
     NSString* _url;
