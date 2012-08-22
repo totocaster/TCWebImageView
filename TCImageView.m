@@ -203,7 +203,10 @@
 			[cachedImage writeToFile:[[TCImageView cacheDirectoryAddress] stringByAppendingPathComponent:[self cachedImageSystemName]] options:NSDataWritingAtomic error:&error];
 		}
 		@catch (NSException * e) {
-			// TODO: error handling
+			if ([self.delegate respondsToSelector:@selector(TCImageView:failedWithError:)]) {
+                NSError *error = [NSError errorWithDomain:@"No image fount in cache" code:001 userInfo:nil];
+                [self.delegate TCImageView:self failedWithError:error];
+            }
 		}
     }
 	
