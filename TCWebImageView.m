@@ -162,8 +162,11 @@
     if (_data == nil)
         _data = [[NSMutableData alloc] initWithCapacity:2048];
     
-    if ([self.delegate respondsToSelector:@selector(webImageView:loadedBytes:totalBytes:)]) {
-        [self.delegate webImageView:self loadedBytes:(long long)_data.length totalBytes:_expectedFileSize];
+    if (_data.length - _previousDataLengthReading > DOWNLOAD_PROGRESS_INCREMENT_KB) {
+        if ([self.delegate respondsToSelector:@selector(webImageView:loadedBytes:totalBytes:)]) {
+            [self.delegate webImageView:self loadedBytes:(long long)_data.length totalBytes:_expectedFileSize];
+        }
+        _previousDataLengthReading = _data.length;
     }
     
     [_data appendData:incrementalData];

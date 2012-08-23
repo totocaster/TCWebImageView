@@ -6,7 +6,8 @@
 
 #import <Foundation/Foundation.h>
 
-#define CACHED_IMAGE_JPEG_QUALITY 1.0
+#define CACHED_IMAGE_JPEG_QUALITY           1.0
+#define DOWNLOAD_PROGRESS_INCREMENT_KB      25
 
 
 @class TCWebImageView;
@@ -33,6 +34,7 @@
     NSURLConnection *_connection;
     NSMutableData *_data;
     long long _expectedFileSize;
+    long long _previousDataLengthReading;
     
     // Caching
     BOOL _caching;
