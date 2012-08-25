@@ -47,6 +47,15 @@
     return self;
 }
 
+- (id)initWithURL:(NSURL *)url placeholderImage:(UIImage *)image completed:(TCWebImageViewFinishedLoading)complete failed:(TCWebImageViewDidFailLoading)failed loadingProcess:(TCWebImageViewLoadingProcess)loading
+{
+    self = [self initWithURL:url placeholderImage:image];
+    finishedLoadingBlock = complete;
+    failedLoadingBlock = failed;
+    loadingProcessBlock = loading;
+    return self;
+}
+
 
 
 - (void)loadImage
@@ -82,10 +91,11 @@
 				
                 if ([self.delegate respondsToSelector:@selector(webImageView:didFinishLoadingImage:fromCache:)]) {
                     [self.delegate webImageView:self didFinishLoadingImage:localImage fromCache:YES];
-                } 
+                }
                 
-				//NSLog(@"TCImage loadImage; delegate release");
-                
+                if (finishedLoadingBlock) {
+                    finishedLoadingBlock(localImage,YES);
+                }
                 
                 return;
             }
@@ -142,6 +152,10 @@
         [_delegate webImageView:self failedWithError:error];
     }
     
+    if (failedLoadingBlock) {
+        failedLoadingBlock(error);
+    }
+    
     _expectedFileSize = 0;
     
     _data = nil;
@@ -166,6 +180,9 @@
         if ([self.delegate respondsToSelector:@selector(webImageView:loadedBytes:totalBytes:)]) {
             [self.delegate webImageView:self loadedBytes:(long long)_data.length totalBytes:_expectedFileSize];
         }
+        if (loadingProcessBlock) {
+            loadingProcessBlock(_expectedFileSize,(long long)_data.length);
+        }
         _previousDataLengthReading = _data.length;
     }
     
@@ -179,7 +196,7 @@
 	
 	UIImage *imageData = [UIImage imageWithData:_data];
     
-    if ([self.delegate respondsToSelector:@selector(webImageView:WillUpdateImage:)]) {
+    if ([self.delegate respondsToSelector:@selector(webImageView:willUpdateImage:)]) {
         [self.delegate webImageView:self willUpdateImage:imageData];
     }
     
@@ -210,6 +227,9 @@
                 NSError *error = [NSError errorWithDomain:@"No image fount in cache" code:001 userInfo:nil];
                 [self.delegate webImageView:self failedWithError:error];
             }
+            if (failedLoadingBlock) {
+                failedLoadingBlock(error);
+            }
 		}
     }
 	
@@ -219,10 +239,13 @@
 	[_connection cancel];
     _connection = nil;
 	
-    if ([self.delegate respondsToSelector:@selector(webImageView:FinisehdImage:)]) {
+    if ([self.delegate respondsToSelector:@selector(webImageView:didFinishLoadingImage:fromCache:)]) {
         [self.delegate webImageView:self didFinishLoadingImage:imageData fromCache:NO];
-    }     
+    }
     
+    if (finishedLoadingBlock) {
+        finishedLoadingBlock(imageData,NO);
+    }
     
 	//NSLog(@"TCImage connectionDidFinishLoading; delegate release");
     

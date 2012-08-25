@@ -12,8 +12,12 @@
 
 @class TCWebImageView;
 
-@protocol TCImageViewDelegate<NSObject>
+typedef void (^TCWebImageViewFinishedLoading)(UIImage *image, BOOL fromCache);
+typedef void (^TCWebImageViewDidFailLoading)(NSError *error);
+typedef void (^TCWebImageViewLoadingProcess)(long long totalBytes, long long bytesDownloaded);
 
+
+@protocol TCImageViewDelegate<NSObject>
 @optional
 -(void)webImageView:(TCWebImageView *)view willUpdateImage:(UIImage *)image;
 -(void)webImageView:(TCWebImageView *)view didFinishLoadingImage:(UIImage *)image fromCache:(BOOL)fromCache;
@@ -40,7 +44,12 @@
     BOOL _caching;
     NSTimeInterval _cacheTime;
 	
+    // Delegates and Blocks
 	id<TCImageViewDelegate> __unsafe_unretained _delegate;
+    
+    TCWebImageViewFinishedLoading finishedLoadingBlock;
+    TCWebImageViewDidFailLoading failedLoadingBlock;
+    TCWebImageViewLoadingProcess loadingProcessBlock;
     
 }
 @property (readonly) NSString* url;
@@ -55,6 +64,8 @@
 
 - (id)initWithURL:(NSString *)url placeholderView:(UIView *)placeholderView;
 - (id)initWithURL:(NSURL *)url placeholderImage:(UIImage *)image;
+
+- (id)initWithURL:(NSURL *)url placeholderImage:(UIImage *)image completed:(TCWebImageViewFinishedLoading)complete failed:(TCWebImageViewDidFailLoading)failed loadingProcess:(TCWebImageViewLoadingProcess)loading;
 
 
 - (void)loadImage;

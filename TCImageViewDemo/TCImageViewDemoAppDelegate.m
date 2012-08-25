@@ -37,12 +37,36 @@
     [_clearCacheButton addTarget:self action:@selector(clearCacheButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     [self.window addSubview:_clearCacheButton];
     
+    /*
     _image = [[TCWebImageView alloc] initWithURL:[NSURL URLWithString:@"http://farm6.static.flickr.com/5051/5459247881_ec423d6611_b.jpg"] placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
     _image.frame = CGRectMake(10.0, 50.0, 300.0, 200.0);
     _image.caching = YES; // Remove line or change to NO to disable off-line caching
     _image.delegate = self;
     [_image loadImage];
+    */
     
+    _image = [[TCWebImageView alloc] initWithURL:[NSURL URLWithString:@"http://farm6.static.flickr.com/5051/5459247881_ec423d6611_b.jpg"]
+                                placeholderImage:[UIImage imageNamed:@"placeholder.png"]
+                                       completed:^(UIImage *image, BOOL fromCache)
+                                                {
+                                                    NSLog(@"Image was loaded using cache: %d",fromCache);
+                                                }
+                                          failed:^(NSError *error)
+                                                {
+                                                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Error Loading URL" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
+                                                    
+                                                    [alert show];
+                                                }
+                                  loadingProcess:^(long long totalBytes, long long bytesDownloaded)
+                                                {
+                                                    _progressBar.progress = (double)bytesDownloaded / (double)totalBytes;
+                                                }];
+    
+    _image.frame = CGRectMake(10.0, 50.0, 300.0, 200.0);
+    _image.caching = YES; // Remove line or change to NO to disable off-line caching
+
+    [_image loadImage];
+     
     [self.window addSubview:_image];
     
 
