@@ -19,11 +19,12 @@ Drag and drop `TCWebImageView.h` and `TCWebImageView.m` into your project, that'
 
 Usage
 -----
-Simply declare `TCWebImageView` instance, assign delegate (that's optional but highly recommended) and add it to superview like this:
+Simply declare `TCWebImageView` instance, assign delegate (that's optional but highly recommended) and add call `-loadImage` method like this:
 
 ```objective-c
 TCWebImageView *webImageView = [[TCWebImageView alloc] initWithURL:[NSURL URLWithString:@"http://address.of.image/you-want-to-download.jpg"] placeholderImage:[UIImage imageNamed:@"local-placeholder.png"]];
 webImageView.delegate = self;
+[webImageView loadImage];
 [view addSubview:webImageView];
 ```
 
@@ -37,10 +38,41 @@ Those are self-explanatory delegates:
 -(void)webImageView:(TCWebImageView *)view loadedBytes:(long long)loadedBytes totalBytes:(long long)totalBytes;
 ```  
 
+Blocks
+------
+
+Instead of using delegates you can use block based `-init` method.
+
+```objective-c
+- (id)initWithURL:(NSURL *)url placeholderImage:(UIImage *)image completed:(TCWebImageViewFinishedLoading)complete failed:(TCWebImageViewDidFailLoading)failed loadingProcess:(TCWebImageViewLoadingProcess)loading;
+```
+
+Example of usage:
+```objective-c
+webImageView = [[TCWebImageView alloc] initWithURL:[NSURL URLWithString:@"http://farm6.static.flickr.com/5051/5459247881_ec423d6611_b.jpg"]
+                            placeholderImage:[UIImage imageNamed:@"placeholder.png"]
+                                   completed:^(UIImage *image, BOOL fromCache)
+                                            {
+                                                NSLog(@"Image was loaded using cache: %d",fromCache);
+                                            }
+                                      failed:^(NSError *error)
+                                            {
+                                                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Error Loading URL" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
+                                                
+                                                [alert show];
+                                            }
+                              loadingProcess:^(long long totalBytes, long long bytesDownloaded)
+                                            {
+                                                _progressBar.progress = (double)bytesDownloaded / (double)totalBytes;
+                                            }];
+
+[webImageView loadImage];
+```
+
 
 Caching
 -------
-To use caching functionality set `caching` property to `YES`; by deffault caching is not in active.
+To use caching functionality set `caching` property to `YES`; by default caching is not active.
 
 ```objective-c
 webImageView.caching = YES;
