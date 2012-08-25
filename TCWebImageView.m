@@ -7,55 +7,69 @@
 #import "TCWebImageView.h"
 #import <CommonCrypto/CommonDigest.h>
 
+@interface TCWebImageView ()
+
+@property long long expectedFileSize;
+@property long long previousDataLengthReading;
+
+@property NSURLConnection *connection;
+@property NSMutableData *data;
+
+- (void)setDeffaults;
+
+@end
 
 @implementation TCWebImageView
 
-@synthesize caching = _caching, url = _url, placeholder = _placeholder, cacheTime = _cacheTime, delegate = _delegate;
-
-- (id)initWithURL:(NSURL *)imageURL placeholderImage:(UIImage *)image;
-{    
-
-    UIImageView *placeholderView = [[UIImageView alloc] initWithImage:image];
-    
-    self = [self initWithURL:[imageURL absoluteString] placeholderView:placeholderView];
-    
-    
-    return self;
-}
-
-- (id)initWithURL:(NSString *)imageURL placeholderView:(UIView *)placeholderView;
-{ 
+- (id)init
+{
     self = [super init];
 	if (self)
 	{
-		// Defaults
-		_placeholder = nil;
-		_url = imageURL;
-		self.caching = NO;
-		self.cacheTime = (double)604800; // 7 days
-		self.delegate = nil;
-		
-		if (placeholderView != nil)
-		{
-			_placeholder = placeholderView;
-			_placeholder.alpha = _placeholder.alpha < 0.1 ? 1.0 : _placeholder.alpha;
-            [self addSubview:_placeholder];
-            
-		}
+		[self setDeffaults];
 	}
-    
+    return self;
+}
+
+- (id)initWithURL:(NSURL *)imageURL placeholderImage:(UIImage *)image;
+{    
+    UIImageView *placeholderView = [[UIImageView alloc] initWithImage:image];
+    return [self initWithURL:[imageURL absoluteString] placeholderView:placeholderView];
+}
+
+- (id)initWithURL:(NSString *)imageURL placeholderView:(UIView *)placeholderView;
+{
+    self = [super init];
+	if (self)
+	{
+        [self setDeffaults];
+        
+        self.url = imageURL;
+        if (placeholderView != nil)
+        {
+            self.placeholder = placeholderView;
+            self.placeholder.alpha = 1.0;
+            [self addSubview:self.placeholder];
+            
+        }
+    }
     return self;
 }
 
 - (id)initWithURL:(NSURL *)url placeholderImage:(UIImage *)image completed:(TCWebImageViewFinishedLoading)complete failed:(TCWebImageViewDidFailLoading)failed loadingProcess:(TCWebImageViewLoadingProcess)loading
 {
-    self = [self initWithURL:url placeholderImage:image];
-    finishedLoadingBlock = complete;
-    failedLoadingBlock = failed;
-    loadingProcessBlock = loading;
-    return self;
+    self.finishedLoadingBlock = complete;
+    self.failedLoadingBlock = failed;
+    self.loadingProcessBlock = loading;
+    return [self initWithURL:url placeholderImage:image];
 }
 
+- (void)setDeffaults
+{
+    self.caching = NO;
+    self.cacheTime = (double)604800; // 7 days
+    self.delegate = nil;
+}
 
 
 - (void)loadImage
@@ -81,20 +95,20 @@
 				
                 self.image = localImage;
 				
-				if (_placeholder)
+				if (self.placeholder)
 				{
-                    if (_placeholder.frame.size.width == 0.0 || _placeholder.frame.size.height == 0.0) {
-                        _placeholder.frame = self.frame;
+                    if (self.placeholder.frame.size.width == 0.0 || self.placeholder.frame.size.height == 0.0) {
+                        self.placeholder.frame = self.frame;
                     }
-					[_placeholder setAlpha:0];
+					[self.placeholder setAlpha:0];
 				}
 				
                 if ([self.delegate respondsToSelector:@selector(webImageView:didFinishLoadingImage:fromCache:)]) {
                     [self.delegate webImageView:self didFinishLoadingImage:localImage fromCache:YES];
                 }
                 
-                if (finishedLoadingBlock) {
-                    finishedLoadingBlock(localImage,YES);
+                if (self.finishedLoadingBlock) {
+                    self.finishedLoadingBlock(localImage,YES);
                 }
                 
                 return;
@@ -103,43 +117,45 @@
     }
     // Loads image from network if no "return;" is triggered (no cache file found)
     
-    _expectedFileSize = 0;
+    self.expectedFileSize = 0;
     
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[self.url stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding]  ] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:30.0];
-    _connection = [[NSURLConnection alloc] initWithRequest:request delegate:self  ];
+    self.connection = [[NSURLConnection alloc] initWithRequest:request delegate:self  ];
     
 }
 
 
 -(void)cancelLoad {
     
-    if (_connection) {
+    if (self.connection) {
         
-        [_connection cancel];
+        [self.connection cancel];
         
-        _expectedFileSize = 0;
-        _data = nil;
-        _connection = nil;
+        self.expectedFileSize = 0;
+        self.data = nil;
+        self.connection = nil;
         
         
     }
 }
 
--(void)reloadWithUrl:(NSString *)url {
-    
-    
+- (void)reloadWithUrlString:(NSString *)urlString;
+{
     [self cancelLoad];
     
     self.image = nil;
-    if (_placeholder) {
-        _placeholder.alpha = 1.0;
+    if (self.placeholder) {
+        self.placeholder.alpha = 1.0;
     }
     
-    _url = nil;
-    _url = url;
+    self.url = urlString;
     
     [self loadImage];
-    
+}
+
+- (void)reloadWithUrl:(NSURL *)url
+{
+    [self reloadWithUrlString:[url absoluteString]];
 }
 
 
@@ -148,45 +164,45 @@
 
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
     
-    if (_delegate && [_delegate respondsToSelector:@selector(webImageView:failedWithError:)]) {
-        [_delegate webImageView:self failedWithError:error];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(webImageView:failedWithError:)]) {
+        [self.delegate webImageView:self failedWithError:error];
     }
     
-    if (failedLoadingBlock) {
-        failedLoadingBlock(error);
+    if (self.failedLoadingBlock) {
+        self.failedLoadingBlock(error);
     }
     
-    _expectedFileSize = 0;
+    self.expectedFileSize = 0;
     
-    _data = nil;
-    [_connection cancel];
-	_connection = nil;
+    self.data = nil;
+    [self.connection cancel];
+	self.connection = nil;
     
     
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-    _expectedFileSize = [response expectedContentLength];
+    self.expectedFileSize = [response expectedContentLength];
 }
 
 
 - (void)connection:(NSURLConnection *)theConnection didReceiveData:(NSData *)incrementalData
 {
     // NSLog(@"didReceiveData");
-    if (_data == nil)
-        _data = [[NSMutableData alloc] initWithCapacity:2048];
+    if (self.data == nil)
+        self.data = [[NSMutableData alloc] initWithCapacity:2048];
     
-    if (_data.length - _previousDataLengthReading > DOWNLOAD_PROGRESS_INCREMENT_KB) {
+    if (self.data.length - self.previousDataLengthReading > DOWNLOAD_PROGRESS_INCREMENT_KB * 1024) {
         if ([self.delegate respondsToSelector:@selector(webImageView:loadedBytes:totalBytes:)]) {
-            [self.delegate webImageView:self loadedBytes:(long long)_data.length totalBytes:_expectedFileSize];
+            [self.delegate webImageView:self loadedBytes:(long long)self.data.length totalBytes:self.expectedFileSize];
         }
-        if (loadingProcessBlock) {
-            loadingProcessBlock(_expectedFileSize,(long long)_data.length);
+        if (self.loadingProcessBlock) {
+            self.loadingProcessBlock(self.expectedFileSize,(long long)self.data.length);
         }
-        _previousDataLengthReading = _data.length;
+        self.previousDataLengthReading = self.data.length;
     }
     
-    [_data appendData:incrementalData];
+    [self.data appendData:incrementalData];
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)theConnection 
@@ -194,7 +210,7 @@
 	//NSLog(@"connectionDidFinishLoading");
     NSFileManager *fileManager = [NSFileManager defaultManager];
 	
-	UIImage *imageData = [UIImage imageWithData:_data];
+	UIImage *imageData = [UIImage imageWithData:self.data];
     
     if ([self.delegate respondsToSelector:@selector(webImageView:willUpdateImage:)]) {
         [self.delegate webImageView:self willUpdateImage:imageData];
@@ -202,9 +218,9 @@
     
     self.image = imageData;
 	
-	if (_placeholder)
+	if (self.placeholder)
 	{
-		[_placeholder setAlpha:0];
+		[self.placeholder setAlpha:0];
 	}
 	
     if (self.caching)
@@ -227,27 +243,25 @@
                 NSError *error = [NSError errorWithDomain:@"No image fount in cache" code:001 userInfo:nil];
                 [self.delegate webImageView:self failedWithError:error];
             }
-            if (failedLoadingBlock) {
-                failedLoadingBlock(error);
+            if (self.failedLoadingBlock) {
+                self.failedLoadingBlock(error);
             }
 		}
     }
 	
     
     
-    _data = nil;
-	[_connection cancel];
-    _connection = nil;
+    self.data = nil;
+	[self.connection cancel];
+    self.connection = nil;
 	
     if ([self.delegate respondsToSelector:@selector(webImageView:didFinishLoadingImage:fromCache:)]) {
         [self.delegate webImageView:self didFinishLoadingImage:imageData fromCache:NO];
     }
     
-    if (finishedLoadingBlock) {
-        finishedLoadingBlock(imageData,NO);
+    if (self.finishedLoadingBlock) {
+        self.finishedLoadingBlock(imageData,NO);
     }
-    
-	//NSLog(@"TCImage connectionDidFinishLoading; delegate release");
     
 }
 
@@ -275,7 +289,7 @@
 
 - (NSString*)cachedImageSystemName
 {
-    const char *concat_str = [_url UTF8String];
+    const char *concat_str = [self.url UTF8String];
 	if (concat_str == nil)
 	{
 		return @"";
