@@ -13,3 +13,12 @@ build/
 
 xcuserdata
 *.xcuserstate
+.DS_Store
+
+*.xcuserstate
+
+.DS_Store
+
+*.xcuserstate
+
+TCImageViewDemo.xcodeproj/project.xcworkspace/xcuserdata/Toto.xcuserdatad/UserInterfaceState.xcuserstate
