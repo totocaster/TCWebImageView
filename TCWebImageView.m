@@ -272,7 +272,9 @@
 
 + (void)resetGlobalCache
 {
-    [[NSFileManager defaultManager] removeItemAtPath:[TCWebImageView cacheDirectoryAddress] error:nil];
+    NSError *error;
+    [[NSFileManager defaultManager] removeItemAtPath:[TCWebImageView cacheDirectoryAddress] error:&error];
+    
 }
 
 + (NSString*)cacheDirectoryAddress
@@ -284,7 +286,8 @@
 
 - (void)resetCache
 {
-    [[NSFileManager defaultManager] removeItemAtPath:[[TCWebImageView cacheDirectoryAddress] stringByAppendingPathComponent:[self cachedImageSystemName]] error:nil];
+    NSError *error;
+    [[NSFileManager defaultManager] removeItemAtPath:[[TCWebImageView cacheDirectoryAddress] stringByAppendingPathComponent:[self cachedImageSystemName]] error:&error];
 }
 
 - (NSString*)cachedImageSystemName
