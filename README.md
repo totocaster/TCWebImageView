@@ -1,7 +1,9 @@
-TCWebImageView
-==============
+TCWebImageView 0.8a
+===================
 
 TCWebImageView is simple and easy to use set of two files which give you UIImageView with built-in networking, error handling and caching support.
+
+*IMPORTANT:* This is pre-release version, thus I do not promise new version to be reverse compatible at this moment.
 
 Key Features
 ------------
