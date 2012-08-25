@@ -31,20 +31,20 @@
     return self;
 }
 
-- (id)initWithURL:(NSURL *)imageURL placeholderImage:(UIImage *)image;
-{    
+- (id)initWithURL:(NSURL *)url placeholderImage:(UIImage *)image
+{
     UIImageView *placeholderView = [[UIImageView alloc] initWithImage:image];
-    return [self initWithURL:[imageURL absoluteString] placeholderView:placeholderView];
+    return [self initWithURL:url placeholderView:placeholderView];
 }
 
-- (id)initWithURL:(NSString *)imageURL placeholderView:(UIView *)placeholderView;
+- (id)initWithURL:(NSURL *)url placeholderView:(UIView *)placeholderView
 {
     self = [super init];
 	if (self)
 	{
         [self setDeffaults];
         
-        self.url = imageURL;
+        self.url = url;
         if (placeholderView != nil)
         {
             self.placeholder = placeholderView;
@@ -119,7 +119,7 @@
     
     self.expectedFileSize = 0;
     
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[self.url stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding]  ] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:30.0];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[[self.url absoluteString] stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding]  ] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:30.0];
     self.connection = [[NSURLConnection alloc] initWithRequest:request delegate:self  ];
     
 }
@@ -148,7 +148,7 @@
         self.placeholder.alpha = 1.0;
     }
     
-    self.url = urlString;
+    self.url = [NSURL URLWithString:urlString];
     
     [self loadImage];
 }
@@ -289,7 +289,7 @@
 
 - (NSString*)cachedImageSystemName
 {
-    const char *concat_str = [self.url UTF8String];
+    const char *concat_str = [[self.url absoluteString] UTF8String];
 	if (concat_str == nil)
 	{
 		return @"";

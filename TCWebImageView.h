@@ -30,7 +30,7 @@ typedef void (^TCWebImageViewLoadingProcess)(long long totalBytes, long long byt
 @interface TCWebImageView : UIImageView
 
 // Public Properties
-@property NSString* url;
+@property NSURL* url;
 @property UIView* placeholder;
 @property (getter = isCaching) BOOL caching;
 @property NSTimeInterval cacheTime;
@@ -47,7 +47,7 @@ typedef void (^TCWebImageViewLoadingProcess)(long long totalBytes, long long byt
 + (NSString*)cacheDirectoryAddress;
 
 // Use those with delegates or set callback block properties before calling -loadImage method
-- (id)initWithURL:(NSString *)url placeholderView:(UIView *)placeholderView;
+- (id)initWithURL:(NSURL *)url placeholderView:(UIView *)placeholderView;
 - (id)initWithURL:(NSURL *)url placeholderImage:(UIImage *)image;
 
 // Inline block callbacks, no delegates requered when using this init
