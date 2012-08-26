@@ -35,6 +35,8 @@ typedef void (^TCWebImageViewLoadingProcess)(long long totalBytes, long long byt
 @property (getter = isCaching) BOOL caching;
 @property NSTimeInterval cacheTime;
 
+@property (readonly) NSNumber *loadingProgress;
+
 // Blcoks are also properties, use them before calling -loadImage method
 @property (readwrite, copy) TCWebImageViewFinishedLoading finishedLoadingBlock;
 @property (readwrite, copy) TCWebImageViewDidFailLoading failedLoadingBlock;

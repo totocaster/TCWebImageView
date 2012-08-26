@@ -199,6 +199,9 @@
         if (self.loadingProcessBlock) {
             self.loadingProcessBlock(self.expectedFileSize,(long long)self.data.length);
         }
+        
+        _loadingProgress = [NSNumber numberWithFloat:(double)self.data.length / (double)self.expectedFileSize];
+        
         self.previousDataLengthReading = self.data.length;
     }
     
