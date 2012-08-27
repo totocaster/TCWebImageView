@@ -113,7 +113,7 @@
 -(void)webImageView:(TCWebImageView *)view didFinishLoadingImage:(UIImage *)image fromCache:(BOOL)fromCache {
     
     NSLog(@"Image was loaded using cache: %d",fromCache);
-    
+    _progressBar.progress = 0.0;
   
 }
 
