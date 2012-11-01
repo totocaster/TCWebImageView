@@ -9,7 +9,6 @@
 #define CACHED_IMAGE_JPEG_QUALITY           1.0
 #define DOWNLOAD_PROGRESS_INCREMENT_KB      25
 
-
 @class TCWebImageView;
 
 // Block Typedefs
@@ -59,8 +58,7 @@ typedef void (^TCWebImageViewLoadingProcess)(long long totalBytes, long long byt
 - (void)loadImage;
 - (void)cancelLoad;
 
-- (void)reloadWithUrl:(NSURL *)url;
-- (void)reloadWithUrlString:(NSString *)urlString;
+- (void)reloadWithURL:(NSURL *)url;
 
 - (NSString*)cachedImageSystemName;
 

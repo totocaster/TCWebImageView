@@ -37,15 +37,19 @@
     [_clearCacheButton addTarget:self action:@selector(clearCacheButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     [self.window addSubview:_clearCacheButton];
     
+    
+    NSURL *url = [NSURL URLWithString:[@"http://farm9.staticflickr.com/8142/7459063868_b821fc91c1_b.jpg" stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding]];
+
     /*
-    _image = [[TCWebImageView alloc] initWithURL:[NSURL URLWithString:@"http://farm6.static.flickr.com/5051/5459247881_ec423d6611_b.jpg"] placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
+    _image = [[TCWebImageView alloc] initWithURL:url placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
     _image.frame = CGRectMake(10.0, 50.0, 300.0, 200.0);
     _image.caching = YES; // Remove line or change to NO to disable off-line caching
     _image.delegate = self;
     [_image loadImage];
     */
     
-    _image = [[TCWebImageView alloc] initWithURL:[NSURL URLWithString:@"http://farm6.static.flickr.com/5051/5459247881_ec423d6611_b.jpg"]
+    
+    _image = [[TCWebImageView alloc] initWithURL:url
                                 placeholderImage:[UIImage imageNamed:@"placeholder.png"]
                                        completed:^(UIImage *image, BOOL fromCache)
                                                 {
@@ -61,12 +65,14 @@
                                                 {
                                                     _progressBar.progress = (double)bytesDownloaded / (double)totalBytes;
                                                 }];
+   
     
     _image.frame = CGRectMake(10.0, 50.0, 300.0, 200.0);
-    _image.caching = YES; // Remove line or change to NO to disable off-line caching
+    _image.caching = NO; // Remove line or change to NO to disable off-line caching
 
     [_image loadImage];
-     
+    
+    
     [self.window addSubview:_image];
     
 
@@ -85,7 +91,7 @@
 #pragma mark Button Events
 
 -(void)buttonTapped:(UIButton *)sender {
-    [_image reloadWithUrlString:@"http://farm6.static.flickr.com/5226/5704412488_ee6a6c9124_b.jpg"];
+    [_image reloadWithURL:[NSURL URLWithString:@"http://farm6.static.flickr.com/5226/5704412488_ee6a6c9124_b.jpg"]];
 }
 
 -(void)clearCacheButtonTapped:(id)sender

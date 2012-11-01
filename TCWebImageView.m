@@ -19,6 +19,7 @@
 
 @end
 
+
 @implementation TCWebImageView
 
 - (id)init
@@ -43,6 +44,10 @@
 	if (self)
 	{
         [self setDefaults];
+        
+        if (!url) {
+            NSLog(@"*** TCWebImageView Warning: NSURL was not provided correctly, if you have urls with spaces try [stringURL stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding]");
+        }
         
         self.url = url;
         if (placeholderView != nil)
@@ -117,8 +122,9 @@
     
     self.expectedFileSize = 0;
     
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[[self.url absoluteString] stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding]  ] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:30.0];
-    self.connection = [[NSURLConnection alloc] initWithRequest:request delegate:self  ];
+    
+    NSURLRequest *request = [NSURLRequest requestWithURL:self.url cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:30.0];
+    self.connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
     
 }
 
@@ -137,7 +143,7 @@
     }
 }
 
-- (void)reloadWithUrlString:(NSString *)urlString;
+- (void)reloadWithURL:(NSURL *)url;
 {
     [self cancelLoad];
     
@@ -146,14 +152,9 @@
         self.placeholder.alpha = 1.0;
     }
     
-    self.url = [NSURL URLWithString:urlString];
+    self.url = url;
     
     [self loadImage];
-}
-
-- (void)reloadWithUrl:(NSURL *)url
-{
-    [self reloadWithUrlString:[url absoluteString]];
 }
 
 
