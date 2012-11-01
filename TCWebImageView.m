@@ -15,7 +15,7 @@
 @property NSURLConnection *connection;
 @property NSMutableData *data;
 
-- (void)setDeffaults;
+- (void)setDefaults;
 
 @end
 
@@ -26,7 +26,7 @@
     self = [super init];
 	if (self)
 	{
-		[self setDeffaults];
+		[self setDefaults];
 	}
     return self;
 }
@@ -42,7 +42,7 @@
     self = [super init];
 	if (self)
 	{
-        [self setDeffaults];
+        [self setDefaults];
         
         self.url = url;
         if (placeholderView != nil)
@@ -64,7 +64,7 @@
     return [self initWithURL:url placeholderImage:image];
 }
 
-- (void)setDeffaults
+- (void)setDefaults
 {
     self.caching = NO;
     self.cacheTime = (double)604800; // 7 days
@@ -74,9 +74,7 @@
 
 - (void)loadImage
 {
-	//NSLog(@"TCImage loadImage; delegate retain");
-    
-    if (self.caching){
+	if (self.caching){
         NSFileManager *fileManager = [NSFileManager defaultManager];
         if ([fileManager fileExistsAtPath:[[TCWebImageView cacheDirectoryAddress] stringByAppendingPathComponent:[self cachedImageSystemName]]])
         {
