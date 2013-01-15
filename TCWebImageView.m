@@ -68,7 +68,16 @@
     self.loadingProcessBlock = loading;
     return [self initWithURL:url placeholderImage:image];
 }
-
+-(void)setFrame:(CGRect)frame
+{
+    [super setFrame:frame];
+    self.placeholder.frame = self.bounds;
+}
+-(void)setContentMode:(UIViewContentMode)contentMode
+{
+    [super setContentMode:contentMode];
+    [self.placeholder setContentMode:contentMode];
+}
 - (void)setDefaults
 {
     self.caching = NO;
