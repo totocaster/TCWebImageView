@@ -17,7 +17,6 @@
 		99ABF146130D3C6400462754 /* TCImageViewDemoAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 99ABF145130D3C6400462754 /* TCImageViewDemoAppDelegate.m */; };
 		99ABF149130D3C6400462754 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 99ABF147130D3C6400462754 /* MainWindow.xib */; };
 		99ABF151130D3C9200462754 /* TCWebImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 99ABF150130D3C9200462754 /* TCWebImageView.m */; };
-		99BC6D5616429D22001E44E6 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 99BC6D5516429D22001E44E6 /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,7 +35,6 @@
 		99ABF148130D3C6400462754 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
 		99ABF14F130D3C9200462754 /* TCWebImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCWebImageView.h; sourceTree = "<group>"; };
 		99ABF150130D3C9200462754 /* TCWebImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCWebImageView.m; sourceTree = "<group>"; };
-		99BC6D5516429D22001E44E6 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,7 +54,6 @@
 		99ABF126130D3C6400462754 = {
 			isa = PBXGroup;
 			children = (
-				99BC6D5516429D22001E44E6 /* Default-568h@2x.png */,
 				99ABF152130D3C9700462754 /* TCWebImageView */,
 				99ABF13B130D3C6400462754 /* TCImageViewDemo */,
 				99ABF134130D3C6400462754 /* Frameworks */,
@@ -169,7 +166,6 @@
 				99ABF149130D3C6400462754 /* MainWindow.xib in Resources */,
 				99A71094130D41F800B4BC8D /* placeholder@2x.png in Resources */,
 				99A71097130D422200B4BC8D /* placeholder.png in Resources */,
-				99BC6D5616429D22001E44E6 /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
