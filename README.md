@@ -1,5 +1,8 @@
-TCWebImageView 0.8a
-===================
+# ⚠️ This is Deprecated Project.
+
+It was never happy with implemetation never used it in production. There are tons of great libraries do to same in a better way. Thanks and happy coding.
+
+---
 
 TCWebImageView is simple and easy to use set of two files which give you UIImageView with built-in networking, error handling and caching support.
 
