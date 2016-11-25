@@ -1,6 +1,6 @@
 # ⚠️ This is Deprecated Project.
 
-It was never happy with implemetation never used it in production. There are tons of great libraries do to same in a better way. Thanks and happy coding.
+I was never happy with implemetation never used it in production. There are tons of great libraries do to same in a better way. Thanks and happy coding.
 
 ---
 
